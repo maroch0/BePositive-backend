@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+    db:
+        image: mariadb:latest
+        command: --default-authentication-plugin=mysql_native_password
+        volumes:
+            - "db_app:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        ports:
+            - 3306:3306
+        networks:
+            - symfony
+    php:
+        build:
+            context: ./php
+            args:
+                TIMEZONE: ${TIMEZONE}
+        volumes:
+            - ../be-positive-symfony:/var/www/symfony/
+        networks:
+            - symfony
+    nginx:
+        build:
+            context: ./nginx
+        volumes:
+            - ../be-positive-symfony:/var/www/symfony/
+        ports:
+            - 80:80
+        networks:
+            - symfony
+        env_file:
+            - .env.nginx.local
+
+volumes:
+    db_app:
+
+networks:
+    symfony:
