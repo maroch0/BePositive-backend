@@ -20,7 +20,7 @@ class User
         $this->gender = $user['gender'];
         $this->birthdate = $user['birthdate'];
         $this->email = $user['email'];
-        $this->password = $user['password'];
+        $this->password = password_hash($user['password'], PASSWORD_BCRYPT);
     }
     /**
      * @ORM\Id
@@ -54,9 +54,9 @@ class User
         return $this->id;
     }
 
-     /**
+    /**
      * Get the value of name
-     */ 
+     */
     public function getName()
     {
         return $this->name;
@@ -66,7 +66,7 @@ class User
      * Set the value of name
      *
      * @return  self
-     */ 
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -76,7 +76,7 @@ class User
 
     /**
      * Get the value of lastName
-     */ 
+     */
     public function getLastName()
     {
         return $this->lastName;
@@ -86,7 +86,7 @@ class User
      * Set the value of lastName
      *
      * @return  self
-     */ 
+     */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
@@ -96,7 +96,7 @@ class User
 
     /**
      * Get the value of gender
-     */ 
+     */
     public function getGender()
     {
         return $this->gender;
@@ -106,7 +106,7 @@ class User
      * Set the value of gender
      *
      * @return  self
-     */ 
+     */
     public function setGender($gender)
     {
         $this->gender = $gender;
@@ -116,7 +116,7 @@ class User
 
     /**
      * Get the value of birthdate
-     */ 
+     */
     public function getBirthdate()
     {
         return $this->birthdate;
@@ -126,7 +126,7 @@ class User
      * Set the value of birthdate
      *
      * @return  self
-     */ 
+     */
     public function setBirthdate($birthdate)
     {
         $this->birthdate = $birthdate;

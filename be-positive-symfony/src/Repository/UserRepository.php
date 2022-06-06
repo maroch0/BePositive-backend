@@ -50,11 +50,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function checkPassword($passInserted, $passSearched)
     {
-        if ($passInserted === $passSearched) {
-            return true;
-        }
-
-        return false;
+        return password_verify($passInserted, $passSearched);
     }
 
     public function add(User $entity, bool $flush = false): void
