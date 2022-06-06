@@ -24,15 +24,13 @@ class UserController extends AbstractController
     }
 
     /** @Route("/login", name="login", methods={"GET"}) */
-    public function signIn(Request $request): Response
+    public function signIn(Request $request, UserRepository $userRepository): Response
     {
-        $user = $this->getUser();
+        $credentials = json_decode($request->getContent(), true);
+        $result = $userRepository->checkUser($credentials);
 
         return $this->json([
-            'email' => $user->getUserIdentifier()
-        ]);
-        return $this->json([
-            'message' => 'Se ha logueado correctamente',
+            'message' => $result,
         ], Response::HTTP_OK);
     }
 }
